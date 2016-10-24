@@ -1,13 +1,15 @@
 applicationLogs:
   applicationLogPatternStrategies:
-  - archiveAppMananged: true
+  0:
+    archiveAppMananged: true
     archiveLogpattern: devis.log\.+
     compressionAppManaged: true
     info: LTomcat LocalHost files
     logPattern: devis.log.*
     retentionInDay: 360
     rotationAppManaged: false
-  - archiveAppMananged: true
+  1:
+    archiveAppMananged: true
     archiveLogpattern: application.log.\.+
     compressionAppManaged: true
     info: LTomcat LocalHost files

@@ -1,26 +1,55 @@
 {
-	"applicationLogs": {
-		"applicationLogPatternStrategies": [
-			{
-				"archiveAppMananged": true,
-				"archiveLogpattern": "devis.log\\.+",
-				"compressionAppManaged": true,
-				"info": "LTomcat LocalHost files",
-				"logPattern": "devis.log.*",
-				"retentionInDay": 360,
-				"rotationAppManaged": false
-			},
-			{
-				"archiveAppMananged": true,
-				"archiveLogpattern": "application.log.\\.+",
-				"compressionAppManaged": true,
-				"info": "LTomcat LocalHost files",
-				"logPattern": "application.log",
-				"retentionInDay": 360,
-				"rotationAppManaged": false
-			}
-		]
-	},
-	"company": "ritmx",
-	"documentType": "Descripteur de déployment applicatif"
+  "documentType" : "Descripteur de déployment applicatif",
+  "version" : "1.0-SNAPSHOT",
+  "company" : "ritmx",
+  "applicationLogs" : {
+    "applicationLogPatternStrategies" : [ {
+      "logPattern" : "devis.log.*",
+      "rotationAppManaged" : false,
+      "archiveAppMananged" : true,
+      "retentionInDay" : 360,
+      "archiveLogpattern" : "devis.log\\.+",
+      "compressionAppManaged" : true,
+      "info" : "LTomcat LocalHost files"
+    }, {
+      "logPattern" : "application.log",
+      "rotationAppManaged" : false,
+      "archiveAppMananged" : true,
+      "retentionInDay" : 360,
+      "archiveLogpattern" : "application.log.\\.+",
+      "compressionAppManaged" : true,
+      "info" : "LTomcat LocalHost files"
+    } ]
+  },
+  "runDescription" : {
+    "packaging" : {
+      "type" : "java",
+      "mode" : "war",
+      "implementation" : "tomcat"
+    },
+    "jvmProfiles" : {
+      "profiles" : [ {
+        "name" : "debug",
+        "jvmOptions" : {
+          "quoted" : false,
+          "needReplacement" : true,
+          "dparameters" : [ "-agentlib:jdwp=transport=dt_socket, address={{env.CATALINA_BASE_DEBUGPORT}}, server=y, suspend=n", "-DtomcatserverName={{env.customHostName}} -Dtomcat.nodeid={{env.nodeid}} -Dtomcat.internalProxies={{env.internalproxiesTomcatFormat}}", "-Dritmx.configuration=classpath:./", "-Djdbc.schema={{app.user.jdbc}}", "-Djdbc.username={{app.user.jdbc}}", "-Djdbc.password={{app.user.jdbc.password}}" ],
+          "xparameters" : [ "-XX:+PrintGCTimeStamps", "-XX:+PrintGCDetails", "-XX:+PrintGCDateStamps", "-Xloggc:{{env.CATALINA_BASE}}/logs/GC.log", "-XX:+UseGCLogFileRotation", "-XX:NumberOfGCLogFiles=5", "-XX:GCLogFileSize=50M", "-Xmx{{env.MEMORYJVMMAX}}g", "-Xms{{env.MEMORYJVMMAX}}g", "-XX:+HeapDumpOnOutOfMemoryError", "-XX:HeapDumpPath={{env.CATALINA_BASE}}/memorydumps" ]
+        }
+      }, {
+        "name" : "standard",
+        "jvmOptions" : {
+          "quoted" : false,
+          "needReplacement" : true,
+          "dparameters" : [ "-Dritmx.configuration=classpath:./", "-Djdbc.schema={{app.user.jdbc}}", "-Djdbc.username={{app.user.jdbc}}", "-Djdbc.password={{app.user.jdbc.password}}" ],
+          "xparameters" : [ "-XX:+PrintGCTimeStamps", "-XX:+PrintGCDetails", "-XX:+PrintGCDateStamps", "-Xloggc:{{env.CATALINA_BASE}}/logs/GC.log", "-XX:+UseGCLogFileRotation", "-XX:NumberOfGCLogFiles=5", "-XX:GCLogFileSize=50M", "-Xmx{{env.MEMORYJVMMAX}}g", "-Xms{{env.MEMORYJVMMAX}}g", "-XX:+HeapDumpOnOutOfMemoryError", "-XX:HeapDumpPath={{env.CATALINA_BASE}}/memorydumps" ]
+        }
+      } ]
+    }
+  },
+  "monitoringSupport" : {
+    "jolokia" : false,
+    "jmx" : true,
+    "springboot" : false
+  }
 }

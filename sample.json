@@ -1,4 +1,26 @@
 {
-	"sample": "configurationNEW",
-	"sample2": "configurationNEW"
+	"applicationLogs": {
+		"applicationLogPatternStrategies": [
+			{
+				"archiveAppMananged": true,
+				"archiveLogpattern": "devis.log\\.+",
+				"compressionAppManaged": true,
+				"info": "LTomcat LocalHost files",
+				"logPattern": "devis.log.*",
+				"retentionInDay": 360,
+				"rotationAppManaged": false
+			},
+			{
+				"archiveAppMananged": true,
+				"archiveLogpattern": "application.log.\\.+",
+				"compressionAppManaged": true,
+				"info": "LTomcat LocalHost files",
+				"logPattern": "application.log",
+				"retentionInDay": 360,
+				"rotationAppManaged": false
+			}
+		]
+	},
+	"company": "ritmx",
+	"documentType": "Descripteur de déployment applicatif"
 }
